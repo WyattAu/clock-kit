@@ -1,0 +1,76 @@
+[package]
+name = "clock-kit"
+version = "0.1.0"
+edition = "2021"
+rust-version = "1.85"
+description = "Time-source abstraction for Rust — monotonic/wall separation, TSC calibration, PTP quality detection, deterministic test clock"
+license = "MIT OR Apache-2.0"
+repository = "https://github.com/WyattAu/clock-kit"
+keywords = ["clock", "time", "latency", "ptp", "no-std"]
+categories = ["date-and-time", "no-std", "development-tools::profiling"]
+exclude = [".github/", "benches/"]
+
+[features]
+default = ["std"]
+std = ["critical-section/std"]
+# libc — no_std monotonic/wall reads via clock_gettime(2) (REQ-CLK-002/003).
+libc = ["dep:libc"]
+# tsc — hardware-counter reads (x86_64 rdtsc, aarch64 cntvct_el0) behind a
+# calibrated multiply-shift conversion (REQ-CLK-003). Single feature with
+# per-arch #[cfg(target_arch)] internals (spec §Decisions #4) so
+# --all-features stays coherent on every host.
+tsc = []
+# ptp — sync-quality detection: /sys/class/ptp discovery + CLOCK_TAI probe
+# (REQ-CLK-004). Requires std (filesystem + libc).
+ptp = ["dep:libc", "std"]
+# chronoshift — bridge to the estate's L0 time trait: every
+# chronoshift::Clock is automatically a clock-kit Clock (spec §Cross-references).
+chronoshift = ["dep:chronoshift"]
+
+[dependencies]
+libc = { version = "0.2", default-features = false, optional = true }
+chronoshift = { version = "1.0", default-features = false, optional = true }
+
+# Critical-section fallback for targets without 64-bit atomics — the
+# chronoshift MockClock pattern (spec §Risk register). Only present in the
+# graph on such targets; the impl is provided by the final binary per
+# critical-section convention.
+[target.'cfg(not(target_has_atomic = "64"))'.dependencies]
+critical-section = { version = "1", default-features = false, features = ["restore-state-u8"] }
+
+[target.'cfg(loom)'.dev-dependencies]
+loom = "0.7"
+
+[dev-dependencies]
+criterion = "0.7"
+proptest = "1"
+
+[[bench]]
+name = "clock_bench"
+harness = false
+
+[lints.rust]
+# deny (not forbid): src/arch.rs carries the crate's ONLY unsafe — the two
+# hardware-counter reads and the CPUID invariant-TSC probe. Every other
+# module re-establishes #![forbid(unsafe_code)] locally, so unsafe remains
+# structurally confined to src/arch.rs. See SECURITY.md.
+unsafe_code = "deny"
+missing_docs = "deny"
+# `loom` is set by the shared CI loom job (RUSTFLAGS="--cfg loom").
+unexpected_cfgs = { level = "warn", check-cfg = ['cfg(loom)'] }
+
+[lints.clippy]
+unwrap_used = "deny"
+expect_used = "deny"
+panic = "deny"
+indexing_slicing = "deny"
+undocumented_unsafe_blocks = "deny"
+
+[profile.release]
+lto = "fat"
+codegen-units = 1
+strip = true
+panic = "abort"
+
+[package.metadata.layers]
+tier = "L1"

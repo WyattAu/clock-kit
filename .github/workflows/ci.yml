@@ -1,0 +1,55 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  schedule:
+    - cron: "0 6 * * 1"
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  quality:
+    # Spec §Gate plan adjustments vs tier A default: loom (atomic-max
+    # floor), miri (ring + mock, lib-only pure logic), embedded
+    # (thumbv7em, no 64-bit atomics → critical-section fallback),
+    # bench-regression (criterion baselines required for a
+    # latency-relevant crate). No wasm gate — no wasm32 claim in v1.
+    uses: WyattAu/engineering-standards/.github/workflows/rust-kit.yml@024f2b5fc013a77316077cea58c9820d1bbfdd28 # main @ 2026-10-02
+    with:
+      tier: a
+      all-features: true
+      loom: true
+      miri: true
+      embedded: true
+      bench-regression: true
+
+  # Per-target coverage (validkit methodology): a single host cannot
+  # execute foreign-arch branches, so the aarch64 tsc branch is measured
+  # on its own runner. x86_64 coverage is the shared tier-A job's.
+  # Residuals are recorded in COVERAGE-NOTES.md.
+  coverage-aarch64:
+    name: coverage (aarch64)
+    runs-on: ubuntu-24.04-arm
+    steps:
+      - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          components: llvm-tools-preview
+      - uses: Swatinem/rust-cache@f13886b937689c021905a6b90929199931d60db1 # v2.8.1
+      - name: install cargo-llvm-cov
+        run: cargo install --locked cargo-llvm-cov
+      - name: coverage (aarch64 denominator, tier-a threshold)
+        run: cargo llvm-cov --all-features --fail-under-lines 90
+
+  bench-smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: Swatinem/rust-cache@f13886b937689c021905a6b90929199931d60db1 # v2.8.1
+      - name: Criterion smoke (sanity, not a gate)
+        run: cargo bench --all-features -- --test

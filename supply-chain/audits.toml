@@ -1,0 +1,156 @@
+
+# cargo-vet audits file
+
+[[audits.chronoshift]]
+criteria = "safe-to-deploy"
+version = "1.0.1"
+notes = "WyattAu estate first-party L0 crate (time abstraction); reviewed as in-tree estate code."
+
+[[audits.clock-kit]]
+criteria = "safe-to-deploy"
+version = "0.1.0"
+notes = "WyattAu first-party crate; reviewed as the original in-tree implementation."
+
+[[trusted.cc]]
+criteria = "safe-to-deploy"
+user-id = 55123 # rust-lang-owner
+start = "2022-10-29"
+end = "2027-10-03"
+
+[[trusted.cc]]
+criteria = "safe-to-run"
+user-id = 55123 # rust-lang-owner
+start = "2022-10-29"
+end = "2027-10-03"
+
+[[trusted.cfg-if]]
+criteria = "safe-to-run"
+user-id = 55123 # rust-lang-owner
+start = "2025-06-09"
+end = "2027-10-03"
+
+[[trusted.critical-section]]
+criteria = "safe-to-deploy"
+user-id = 92139 # Dario Nieuwenhuis (Dirbaio)
+start = "2021-05-09"
+end = "2027-10-03"
+
+[[trusted.find-msvc-tools]]
+criteria = "safe-to-run"
+user-id = 539
+start = "2025-08-29"
+end = "2027-10-03"
+
+[[trusted.js-sys]]
+criteria = "safe-to-run"
+user-id = 1 # Alex Crichton (alexcrichton)
+start = "2019-03-04"
+end = "2027-10-03"
+
+[[trusted.lazy_static]]
+criteria = "safe-to-deploy"
+user-id = 55123 # rust-lang-owner
+start = "2026-10-01"
+end = "2027-10-03"
+
+[[trusted.lazy_static]]
+criteria = "safe-to-run"
+user-id = 55123 # rust-lang-owner
+start = "2026-10-01"
+end = "2027-10-03"
+
+[[trusted.libc]]
+criteria = "safe-to-deploy"
+user-id = 55123 # rust-lang-owner
+start = "2024-08-15"
+end = "2027-10-03"
+
+[[trusted.libc]]
+criteria = "safe-to-deploy"
+trusted-publisher = "github:rust-lang/libc"
+start = "2026-10-02"
+end = "2027-10-03"
+
+[[trusted.loom]]
+criteria = "safe-to-deploy"
+user-id = 6741 # Alice Ryhl (Darksonn)
+start = "2021-04-12"
+end = "2027-10-03"
+
+[[trusted.loom]]
+criteria = "safe-to-run"
+user-id = 6741 # Alice Ryhl (Darksonn)
+start = "2021-04-12"
+end = "2027-10-03"
+
+[[trusted.rustix]]
+criteria = "safe-to-run"
+user-id = 6825 # Dan Gohman (sunfishcode)
+start = "2021-10-29"
+end = "2027-10-03"
+
+[[trusted.smallvec]]
+criteria = "safe-to-run"
+user-id = 2017
+start = "2019-10-28"
+end = "2027-10-03"
+
+[[trusted.syn]]
+criteria = "safe-to-run"
+user-id = 3618 # David Tolnay (dtolnay)
+start = "2019-03-01"
+end = "2027-10-03"
+
+[[trusted.thread_local]]
+criteria = "safe-to-run"
+user-id = 2915 # Amanieu d'Antras (Amanieu)
+start = "2019-09-07"
+end = "2027-10-03"
+
+[[trusted.tracing-subscriber]]
+criteria = "safe-to-run"
+user-id = 172786 # Hayden Stainsby (hds)
+start = "2024-11-29"
+end = "2027-10-03"
+
+[[trusted.unicode-ident]]
+criteria = "safe-to-run"
+user-id = 3618 # David Tolnay (dtolnay)
+start = "2021-10-02"
+end = "2027-10-03"
+
+[[trusted.wasm-bindgen]]
+criteria = "safe-to-run"
+user-id = 1 # Alex Crichton (alexcrichton)
+start = "2019-03-04"
+end = "2027-10-03"
+
+[[trusted.wasm-bindgen-macro]]
+criteria = "safe-to-run"
+user-id = 1 # Alex Crichton (alexcrichton)
+start = "2019-03-04"
+end = "2027-10-03"
+
+[[trusted.wasm-bindgen-macro-support]]
+criteria = "safe-to-run"
+user-id = 1 # Alex Crichton (alexcrichton)
+start = "2019-03-04"
+end = "2027-10-03"
+
+[[trusted.wasm-bindgen-shared]]
+criteria = "safe-to-run"
+user-id = 1 # Alex Crichton (alexcrichton)
+start = "2019-03-04"
+end = "2027-10-03"
+
+[[trusted.web-sys]]
+criteria = "safe-to-run"
+user-id = 1 # Alex Crichton (alexcrichton)
+start = "2019-03-04"
+end = "2027-10-03"
+
+[[trusted.windows-result]]
+criteria = "safe-to-run"
+user-id = 64539 # Kenny Kerr (kennykerr)
+start = "2024-02-02"
+end = "2027-10-03"
