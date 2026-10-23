@@ -1,4 +1,4 @@
-# Security Policy — clock-kit
+# Security Policy: clock-kit
 
 ## Supported versions
 
@@ -24,17 +24,17 @@ integrators:
 
 - **`SyncQuality` is advisory, never authentication.** A `Ptp`
   classification means "a PTP device exists and the kernel's TAI offset
-  looks coherent at probe time" — it can be spoofed by anything that can
+  looks coherent at probe time": it can be spoofed by anything that can
   write sysfs or set the kernel TAI offset. Never use it as a security
   boundary; use it to decide whether timestamps may be correlated across
   machines.
 - **Detection is read-only by design.** REQ-CLK-004 performs no PTP
   participation: no daemon, no PHC control writes, no `adjtimex`. The
-  probe surfaces are `read_dir` on a sysfs path and `clock_gettime` —
+  probe surfaces are `read_dir` on a sysfs path and `clock_gettime`:
   no I/O beyond that, no network, no secrets.
 - **unsafe surface is one file.** The crate is
   `#![deny(unsafe_code)]` with every other module
-  `#![forbid(unsafe_code)]`; the only unsafe is in `src/low.rs` — the
+  `#![forbid(unsafe_code)]`; the only unsafe is in `src/low.rs`: the
   x86_64 `rdtsc` intrinsic, two aarch64 `mrs` system-register reads, and
   two `clock_gettime(2)` FFI wrappers, each justified in place
   (`undocumented_unsafe_blocks` denied). No unsafe exists in the ring,

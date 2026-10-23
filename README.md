@@ -1,20 +1,20 @@
 # clock-kit
 
-Precision time substrate for Rust — monotonic/wall separation, TSC
+Precision time substrate for Rust: monotonic/wall separation, TSC
 calibration, PTP quality detection, and a deterministic test clock. The
 estate's time source for latency-critical paths (feed handlers, matching
 threads, latency measurement): it answers how expensive reading the clock
 is, how much to trust it, and how to test against it deterministically.
 
 - **Monotonic by construction (G1)**: `Timestamp::mono` never goes backward
-  within a process — enforced by a process-wide `fetch_max` floor (with a
+  within a process: enforced by a process-wide `fetch_max` floor (with a
   critical-section fallback on targets without 64-bit atomics), not by
   trust in the underlying source. A regression is a bug, not a documented
   possibility.
 - **Wall and monotonic are separate (REQ-CLK-002)**: `Timestamp` carries
   both with independent rules. Wall time may step (NTP slew, PTP step,
   operator action); mono never steps and never regresses. The single
-  cross-derivation in the API is `Timestamp::mono_from_wall_lossy` —
+  cross-derivation in the API is `Timestamp::mono_from_wall_lossy`,
   explicitly labelled lossy.
 - **Cheap reads behind calibration (REQ-CLK-003)**: x86_64 `rdtsc` /
   aarch64 `cntvct_el0` behind a calibrated 32.32 multiply-shift (no
@@ -35,7 +35,7 @@ is, how much to trust it, and how to test against it deterministically.
 - **`#![deny(unsafe_code)]`, `#![deny(missing_docs)]`**, clippy
   `unwrap_used`/`expect_used`/`panic`/`indexing_slicing` denied. The
   crate's only unsafe is the hardware-counter reads and the
-  `clock_gettime` FFI wrappers, confined to `src/low.rs` — every other
+  `clock_gettime` FFI wrappers, confined to `src/low.rs`: every other
   module re-establishes `#![forbid(unsafe_code)]` locally (see
   [SECURITY.md](SECURITY.md)).
 
@@ -72,7 +72,7 @@ let s = ring.stats();
 assert_eq!((s.min, s.max), (200, 1_500));
 ```
 
-## The chronoshift bridge — one estate time idiom
+## The chronoshift bridge: one estate time idiom
 
 [chronoshift] (L0) owns time *abstraction*; clock-kit (L1) owns time
 *precision and cost*. clock-kit does not mint a rival trait. With the
@@ -87,7 +87,7 @@ clock-kit = { version = "0.1", features = ["chronoshift"] }
 ```
 
 Note: types implementing `chronoshift::Clock` become clock-kit `Clock`s
-automatically — do not also `impl clock_kit::Clock` for them (coherence).
+automatically: do not also `impl clock_kit::Clock` for them (coherence).
 The blanket points one way; clock-kit's own clocks are not
 `chronoshift::Clock`s.
 
@@ -110,7 +110,7 @@ The blanket points one way; clock-kit's own clocks are not
 `mono_floor`. Wall reads need `std` or `libc`; the calibrated clock needs
 `std` or `libc` as its reference. On targets without 64-bit atomics
 (e.g. `thumbv7em`), the floor and mock cells fall back to
-`critical-section` — the impl is provided by the final binary, per
+`critical-section`: the impl is provided by the final binary, per
 critical-section convention (the chronoshift pattern).
 
 ## Calibration model and drift caveat
@@ -133,7 +133,7 @@ caveat applies to multi-socket hosts (documented; see SECURITY.md).
 ## Percentile semantics
 
 `LatencyRing::stats` is **exact over the window** (sorts a bounded stack
-copy), not a streaming approximation — HFT latency gates want exact
+copy), not a streaming approximation: HFT latency gates want exact
 numbers over a known window. Percentiles are nearest-rank, re-implemented
 lean from the percentile-kit pattern: percentile-kit is L2 and cannot be a
 dependency of this L1 crate (estate layer rule: no upward edges). If the
