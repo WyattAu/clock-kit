@@ -1,4 +1,5 @@
 # clock-kit
+[![Estate integration](https://github.com/WyattAu/estate-integration/actions/workflows/ci.yml/badge.svg)](https://github.com/WyattAu/estate-integration/actions/workflows/ci.yml)
 
 Precision time substrate for Rust: monotonic/wall separation, TSC
 calibration, PTP quality detection, and a deterministic test clock. The
