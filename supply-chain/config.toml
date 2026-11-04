@@ -32,24 +32,12 @@ audit-as-crates-io = false
 version = "1.1.5"
 criteria = "safe-to-run"
 
-[[exemptions.alloca]]
-version = "0.4.0"
-criteria = "safe-to-run"
-
 [[exemptions.anstyle]]
 version = "1.0.14"
 criteria = "safe-to-run"
 
 [[exemptions.autocfg]]
 version = "1.5.1"
-criteria = "safe-to-run"
-
-[[exemptions.bit-set]]
-version = "0.11.1"
-criteria = "safe-to-run"
-
-[[exemptions.bit-vec]]
-version = "0.10.1"
 criteria = "safe-to-run"
 
 [[exemptions.bitflags]]
@@ -72,14 +60,6 @@ criteria = "safe-to-run"
 version = "1.6.0"
 criteria = "safe-to-run"
 
-[[exemptions.cfg_aliases]]
-version = "0.2.2"
-criteria = "safe-to-run"
-
-[[exemptions.chacha20]]
-version = "0.10.2"
-criteria = "safe-to-run"
-
 [[exemptions.clap]]
 version = "4.6.7"
 criteria = "safe-to-run"
@@ -92,28 +72,8 @@ criteria = "safe-to-run"
 version = "1.1.1"
 criteria = "safe-to-run"
 
-[[exemptions.core_detect]]
-version = "1.0.0"
-criteria = "safe-to-run"
-
-[[exemptions.cpufeatures]]
-version = "0.3.1"
-criteria = "safe-to-run"
-
 [[exemptions.criterion]]
 version = "0.7.0"
-criteria = "safe-to-run"
-
-[[exemptions.criterion]]
-version = "0.8.2"
-criteria = "safe-to-run"
-
-[[exemptions.criterion-plot]]
-version = "0.6.0"
-criteria = "safe-to-run"
-
-[[exemptions.criterion-plot]]
-version = "0.8.2"
 criteria = "safe-to-run"
 
 [[exemptions.crossbeam-deque]]
@@ -144,24 +104,8 @@ criteria = "safe-to-run"
 version = "0.1.14"
 criteria = "safe-to-run"
 
-[[exemptions.futures-core]]
-version = "0.3.34"
-criteria = "safe-to-run"
-
-[[exemptions.futures-task]]
-version = "0.3.34"
-criteria = "safe-to-run"
-
-[[exemptions.futures-util]]
-version = "0.3.34"
-criteria = "safe-to-run"
-
 [[exemptions.generator]]
 version = "0.8.10"
-criteria = "safe-to-run"
-
-[[exemptions.getrandom]]
-version = "0.4.3"
 criteria = "safe-to-run"
 
 [[exemptions.half]]
@@ -197,10 +141,6 @@ notes = "Runtime dep; no certification for 0.4.34 yet."
 version = "2.8.3"
 criteria = "safe-to-run"
 
-[[exemptions.page_size]]
-version = "0.6.0"
-criteria = "safe-to-run"
-
 [[exemptions.pin-project-lite]]
 version = "0.2.17"
 criteria = "safe-to-run"
@@ -226,31 +166,11 @@ version = "1.0.107"
 criteria = "safe-to-run"
 
 [[exemptions.proptest]]
-version = "1.11.0"
-criteria = "safe-to-run"
-
-[[exemptions.proptest]]
 version = "1.12.0"
 criteria = "safe-to-run"
 
 [[exemptions.r-efi]]
-version = "5.3.0"
-criteria = "safe-to-run"
-
-[[exemptions.r-efi]]
 version = "6.0.0"
-criteria = "safe-to-run"
-
-[[exemptions.rand]]
-version = "0.9.5"
-criteria = "safe-to-run"
-
-[[exemptions.rand]]
-version = "0.10.3"
-criteria = "safe-to-run"
-
-[[exemptions.rand_core]]
-version = "0.10.1"
 criteria = "safe-to-run"
 
 [[exemptions.rand_xorshift]]
@@ -322,11 +242,6 @@ version = "0.1.44"
 criteria = "safe-to-run"
 notes = "Runtime dep; no certification for 0.1.44 yet."
 
-[[exemptions.tracing-core]]
-version = "0.1.36"
-criteria = "safe-to-run"
-notes = "Runtime dep; no certification for 0.1.36 yet."
-
 [[exemptions.walkdir]]
 version = "2.5.0"
 criteria = "safe-to-run"
@@ -335,24 +250,12 @@ criteria = "safe-to-run"
 version = "0.2.129"
 criteria = "safe-to-run"
 
-[[exemptions.wasm-bindgen-macro]]
-version = "0.2.129"
-criteria = "safe-to-run"
-
 [[exemptions.wasm-bindgen-macro-support]]
-version = "0.2.129"
-criteria = "safe-to-run"
-
-[[exemptions.wasm-bindgen-shared]]
 version = "0.2.129"
 criteria = "safe-to-run"
 
 [[exemptions.web-sys]]
 version = "0.3.106"
-criteria = "safe-to-run"
-
-[[exemptions.winapi]]
-version = "0.3.9"
 criteria = "safe-to-run"
 
 [[exemptions.winapi-i686-pc-windows-gnu]]
